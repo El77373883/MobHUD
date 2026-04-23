@@ -8,19 +8,20 @@ public class MobHUD extends JavaPlugin {
     private static MobHUD instance;
     private HudManager hudManager;
     private ConfigManager configManager;
+    private MobLevelManager mobLevelManager;
+    private HologramManager hologramManager;
     
     @Override
     public void onEnable() {
         instance = this;
         
-        // Cargar configuración primero
         configManager = new ConfigManager(this);
         hudManager = new HudManager(this);
+        mobLevelManager = new MobLevelManager(this);
+        hologramManager = new HologramManager(this);
         
-        // Registrar eventos
-        getServer().getPluginManager().registerEvents(new EntityListener(hudManager), this);
+        getServer().getPluginManager().registerEvents(new EntityListener(hudManager, mobLevelManager, hologramManager), this);
         
-        // Registrar comando de recarga
         getCommand("mobhud").setExecutor((sender, command, label, args) -> {
             if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
                 if (sender.hasPermission("mobhud.reload") || sender.isOp()) {
@@ -35,15 +36,18 @@ public class MobHUD extends JavaPlugin {
             return true;
         });
         
-        getLogger().info("§aMobHUD v1.0 activado correctamente.");
+        getLogger().info("§aMobHUD v2.0 activado - ¡Hologramas y niveles activados!");
     }
     
     @Override
     public void onDisable() {
+        hologramManager.eliminarTodosHologramas();
         getLogger().info("§cMobHUD desactivado.");
     }
     
     public static MobHUD getInstance() { return instance; }
     public HudManager getHudManager() { return hudManager; }
     public ConfigManager getConfigManager() { return configManager; }
+    public MobLevelManager getMobLevelManager() { return mobLevelManager; }
+    public HologramManager getHologramManager() { return hologramManager; }
 }
