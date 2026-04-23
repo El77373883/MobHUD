@@ -36,7 +36,6 @@
         <finalName>${project.artifactId}-${project.version}</finalName>
         
         <plugins>
-            <!-- Plugin de compilación -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -48,13 +47,11 @@
             </plugin>
         </plugins>
         
+        <!-- IMPORTANTE: Esto copia plugin.yml y config.yml a la raíz del .jar -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
-                <includes>
-                    <include>**/*.yml</include>
-                </includes>
             </resource>
         </resources>
     </build>
