@@ -1,0 +1,47 @@
+# MobHUD - Configuración Principal
+# Plugin hecho para servidores Java + Bedrock
+
+# ===== AJUSTES GENERALES =====
+general:
+  # ¿Mostrar la vida en la barra de acción al dañar?
+  mostrar-al-danar: true
+  
+  # ¿Mostrar también al mirar al mob? (puede consumir más recursos)
+  mostrar-al-mirar: false
+  
+  # ¿Mostrar mensaje de EXP obtenida al matar?
+  mostrar-exp: true
+
+# ===== APARIENCIA =====
+apariencia:
+  # Símbolos para la barra de vida
+  barra:
+    lleno: "█"
+    vacio: "▒"
+    largo: 20
+    
+  # Colores según porcentaje de vida
+  colores:
+    alto: "&a"      # Verde (75-100%)
+    medio: "&e"     # Amarillo (50-74%)
+    bajo: "&6"      # Naranja (25-49%)
+    critico: "&c"   # Rojo (0-24%)
+
+# ===== MOBS EXCLUIDOS =====
+# Mobs que NO mostrarán su vida (ej: jefes ya tienen barra)
+mobs-excluidos:
+  - "ENDER_DRAGON"
+  - "WITHER"
+  - "WARDEN"
+
+# ===== MUNDOS DESHABILITADOS =====
+# Mundos donde el plugin NO funcionará
+mundos-deshabilitados:
+  - "world_spawn_protegido"
+  - "minijuegos"
+
+# ===== MENSAJES (Soporta códigos de color &) =====
+mensajes:
+  exp-obtenida: "&a+%exp% EXP &7de &f%mob%"
+  sin-permiso: "&cNo tienes permiso para ver esto."
+  recargado: "&aMobHUD recargado correctamente."
