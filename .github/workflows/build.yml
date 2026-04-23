@@ -3,8 +3,6 @@ name: Build Plugin
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -21,11 +19,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     
-    - name: Dar permisos a Maven
-      run: chmod +x mvnw
-    
     - name: Compilar con Maven
-      run: ./mvnw clean package
+      run: mvn clean package
     
     - name: Subir el .jar como artefacto
       uses: actions/upload-artifact@v4
