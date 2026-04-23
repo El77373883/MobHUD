@@ -18,7 +18,7 @@ public class MobHUD extends JavaPlugin {
         hudManager = new HudManager(this);
         
         // Registrar eventos
-        getServer().getPluginManager().registerEvents(new EntityListener(this), this);
+        getServer().getPluginManager().registerEvents(new EntityListener(hudManager), this);
         
         // Registrar comando de recarga
         getCommand("mobhud").setExecutor((sender, command, label, args) -> {
