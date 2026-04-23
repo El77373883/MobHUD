@@ -10,6 +10,7 @@ public class MobHUD extends JavaPlugin {
     private ConfigManager configManager;
     private MobLevelManager mobLevelManager;
     private HologramManager hologramManager;
+    private ChatManager chatManager;  // ← NUEVO
     
     @Override
     public void onEnable() {
@@ -19,9 +20,13 @@ public class MobHUD extends JavaPlugin {
         hudManager = new HudManager(this);
         mobLevelManager = new MobLevelManager(this);
         hologramManager = new HologramManager(this);
+        chatManager = new ChatManager(this);  // ← NUEVO
         
+        // Registrar eventos
         getServer().getPluginManager().registerEvents(new EntityListener(hudManager, mobLevelManager, hologramManager), this);
+        getServer().getPluginManager().registerEvents(chatManager, this);  // ← NUEVO
         
+        // Comando de recarga
         getCommand("mobhud").setExecutor((sender, command, label, args) -> {
             if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
                 if (sender.hasPermission("mobhud.reload") || sender.isOp()) {
@@ -36,7 +41,10 @@ public class MobHUD extends JavaPlugin {
             return true;
         });
         
-        getLogger().info("§aMobHUD v2.0 activado - ¡Hologramas y niveles activados!");
+        // Mostrar mensaje épico en consola
+        chatManager.mostrarMensajeConsola();  // ← NUEVO
+        
+        getLogger().info("§aMobHUD v1.0 activado - ¡Hologramas y niveles activados!");
     }
     
     @Override
@@ -50,4 +58,5 @@ public class MobHUD extends JavaPlugin {
     public ConfigManager getConfigManager() { return configManager; }
     public MobLevelManager getMobLevelManager() { return mobLevelManager; }
     public HologramManager getHologramManager() { return hologramManager; }
+    public ChatManager getChatManager() { return chatManager; }  // ← NUEVO
 }
