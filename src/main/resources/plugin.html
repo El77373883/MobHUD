@@ -2,5 +2,16 @@ name: MobHUD
 version: 1.0
 main: com.tuservidor.mobhud.MobHUD
 api-version: "1.20"
-description: Muestra vida, EXP y nivel de los mobs al mirarlos o dañarlos
+description: Muestra vida, EXP y nivel de mobs en servidores Java/Bedrock
 author: TuNombre
+
+commands:
+  mobhud:
+    description: Comando principal de MobHUD
+    usage: /<command> [reload]
+    aliases: [mh, mobh]
+
+permissions:
+  mobhud.reload:
+    description: Permite recargar la configuración
+    default: op
