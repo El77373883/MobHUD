@@ -19,24 +19,18 @@ public class HologramManager {
         this.plugin = plugin;
     }
     
-    /**
-     * Crea un holograma sobre el mob mostrando: [Nv.X] Nombre y Vida
-     */
     public void mostrarHolograma(LivingEntity entidad, int nivel, double vidaActual, double vidaMaxima) {
-        // Eliminar holograma anterior si existe
         if (hologramas.containsKey(entidad)) {
             eliminarHolograma(entidad);
         }
         
         Location loc = entidad.getLocation().add(0, entidad.getHeight() + 0.5, 0);
         
-        // Crear línea 1: [Nv.X] Nombre
         ArmorStand linea1 = (ArmorStand) entidad.getWorld().spawnEntity(loc.clone().add(0, 0.3, 0), EntityType.ARMOR_STAND);
         configurarArmorStand(linea1);
         linea1.setCustomName(ChatColor.GOLD + "[Nv." + nivel + "] " + ChatColor.YELLOW + obtenerNombreLimpio(entidad));
         linea1.setCustomNameVisible(true);
         
-        // Crear línea 2: Barra de vida visual
         ArmorStand linea2 = (ArmorStand) entidad.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
         configurarArmorStand(linea2);
         String barra = generarBarraVisual(vidaActual, vidaMaxima);
@@ -45,18 +39,14 @@ public class HologramManager {
         
         hologramas.put(entidad, new ArmorStand[]{linea1, linea2});
         
-        // Auto-eliminar después de 8 segundos
         new BukkitRunnable() {
             @Override
             public void run() {
                 eliminarHolograma(entidad);
             }
-        }.runTaskLater(plugin, 160L); // 160 ticks = 8 segundos
+        }.runTaskLater(plugin, 160L);
     }
     
-    /**
-     * Actualiza el holograma cuando el mob recibe daño
-     */
     public void actualizarHolograma(LivingEntity entidad, int nivel, double vidaActual, double vidaMaxima) {
         if (hologramas.containsKey(entidad)) {
             ArmorStand[] stands = hologramas.get(entidad);
@@ -67,9 +57,6 @@ public class HologramManager {
         }
     }
     
-    /**
-     * Elimina el holograma de un mob específico
-     */
     public void eliminarHolograma(LivingEntity entidad) {
         if (hologramas.containsKey(entidad)) {
             ArmorStand[] stands = hologramas.get(entidad);
@@ -82,9 +69,6 @@ public class HologramManager {
         }
     }
     
-    /**
-     * Elimina todos los hologramas (al desactivar el plugin)
-     */
     public void eliminarTodosHologramas() {
         for (ArmorStand[] stands : hologramas.values()) {
             for (ArmorStand stand : stands) {
@@ -99,10 +83,14 @@ public class HologramManager {
     private void configurarArmorStand(ArmorStand stand) {
         stand.setVisible(false);
         stand.setGravity(false);
-        stand.setMarker(true);
+        stand.setMarker(true);           // ← ELIMINA LA HITBOX
         stand.setCustomNameVisible(true);
         stand.setInvulnerable(true);
         stand.setCollidable(false);
+        stand.setCanPickupItems(false);
+        stand.setArms(false);
+        stand.setBasePlate(false);
+        stand.setSmall(true);
     }
     
     private String generarBarraVisual(double actual, double maximo) {
