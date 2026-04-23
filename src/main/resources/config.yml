@@ -1,5 +1,6 @@
-# MobHUD - Configuración Principal
+# MobHUD - Configuración Principal v2.0
 # Plugin hecho para servidores Java + Bedrock
+# Ahora con Hologramas y Niveles de Mobs
 
 # ===== AJUSTES GENERALES =====
 general:
@@ -11,6 +12,26 @@ general:
   
   # ¿Mostrar mensaje de EXP obtenida al matar?
   mostrar-exp: true
+  
+  # ¿Mostrar holograma sobre la cabeza del mob?
+  mostrar-holograma: true
+  
+  # Tiempo en segundos que dura el holograma visible
+  tiempo-holograma: 8
+
+# ===== SISTEMA DE NIVELES =====
+niveles:
+  # ¿Activar sistema de niveles para mobs?
+  habilitado: true
+  
+  # Distancia desde el spawn para subir 1 nivel (en bloques)
+  distancia-por-nivel: 100
+  
+  # Variación aleatoria máxima (+/- niveles)
+  variacion-maxima: 3
+  
+  # EXP extra por cada nivel del mob
+  exp-por-nivel: 2
 
 # ===== APARIENCIA =====
 apariencia:
@@ -26,9 +47,13 @@ apariencia:
     medio: "&e"     # Amarillo (50-74%)
     bajo: "&6"      # Naranja (25-49%)
     critico: "&c"   # Rojo (0-24%)
+  
+  # Formato del holograma (soporta %nivel%, %nombre%, %vida%, %vida_max%)
+  formato-holograma-linea1: "&6[Nv.%nivel%] &e%nombre%"
+  formato-holograma-linea2: "%barra% &7%vida%/%vida_max%❤"
 
 # ===== MOBS EXCLUIDOS =====
-# Mobs que NO mostrarán su vida (ej: jefes ya tienen barra)
+# Mobs que NO mostrarán su información
 mobs-excluidos:
   - "ENDER_DRAGON"
   - "WITHER"
@@ -42,6 +67,7 @@ mundos-deshabilitados:
 
 # ===== MENSAJES (Soporta códigos de color &) =====
 mensajes:
-  exp-obtenida: "&a+%exp% EXP &7de &f%mob%"
+  # %exp% = experiencia, %mob% = nombre del mob, %nivel% = nivel del mob
+  exp-obtenida: "&a+%exp% EXP &7de &f%mob% &6[Nv.%nivel%]"
   sin-permiso: "&cNo tienes permiso para ver esto."
-  recargado: "&aMobHUD recargado correctamente."
+  recargado: "&aMobHUD v2.0 recargado correctamente."
